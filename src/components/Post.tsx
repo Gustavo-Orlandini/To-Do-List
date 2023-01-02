@@ -19,7 +19,7 @@ export function Post({content}: PostProps) {
     ])
 
     const [newCommentText, setNewCommentText] = useState('')
-
+    
 
     function handleCreatNewComment(event: FormEvent) {
         event.preventDefault()
@@ -30,14 +30,14 @@ export function Post({content}: PostProps) {
 
     }
 
-    function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
-        event.target.setCustomValidity('');
-        setNewCommentText(event.target.value);
-    }
+    // function handleNewCommentChange(event: ChangeEvent<HTMLInputElement>) {
+    //     event.target.setCustomValidity('');
+    //     setNewCommentText(event.target.value);
+    // }
 
-    function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
-        event.target.setCustomValidity('Esse campo é obrigatório!')
-    }
+    // function handleNewCommentInvalid(event: InvalidEvent<HTMLInputElement>) {
+    //     event.target.setCustomValidity('Esse campo é obrigatório!')
+    // }
 
     function deleteComment(commentToDelete: string) {
         const commentsWithoutDeletedOne = comments.filter(comment => {
@@ -52,6 +52,26 @@ export function Post({content}: PostProps) {
     return (
         <article className={styles.post}>
          
+            <form onSubmit={handleCreatNewComment} className={styles.commentForm}>
+                
+              
+                <input
+                    name="comment"
+                    placeholder="Adicione uma nova tarefa"
+                    value={newCommentText}
+                    type="text"
+                    onChange={(e) => setNewCommentText(e.target.value)}
+                    // onInvalid={handleNewCommentInvalid}
+                    required
+                />
+
+                <footer>
+                    <button type="submit" disabled={isNewCommentEmpty}>
+                        Criar
+                    </button>
+                </footer>
+            </form>
+
             <div className={styles.content}>
                 {content.map(line => {
                     if (line.type === 'paragraph') {
@@ -63,24 +83,6 @@ export function Post({content}: PostProps) {
                 })}
 
             </div>
-
-            <form onSubmit={handleCreatNewComment} className={styles.commentForm}>
-                
-                <textarea
-                    name="comment" 
-                    placeholder='Adicione uma nova tarefa'
-                    value={newCommentText}
-                    onChange={handleNewCommentChange}
-                    onInvalid={handleNewCommentInvalid}
-                    required
-                />
-
-                <footer>
-                    <button type="submit" disabled={isNewCommentEmpty}>
-                        Criar
-                    </button>
-                </footer>
-            </form>
 
             <div className={styles.commentList}>
                 {comments.map(comment => {
