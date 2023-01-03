@@ -1,70 +1,73 @@
 import { PlusCircle } from 'phosphor-react';
 import { FormEvent, useState, ChangeEvent, InvalidEvent } from 'react';
-import { Comment } from './Comment';
+import { Tarefas } from './Tarefas';
 import { EmptyBody } from './EmptyBody';
+import { Counter } from './Counter';
 
 import styles from './ToDoInput.module.css';
 
 
-interface Content {
-    type: 'paragraph' | 'link';
-    content: string;
-}
-
 export function ToDoInput() {
-    const [comments, setComments] = useState([
-        'Post toooop heim!?'
-    ])
+    const [tarefas, setTarefas] = useState<string[]> ([])
 
-    const [newCommentText, setNewCommentText] = useState('')
+    const [newTarefaText, setNewTarefaText] = useState('')
 
 
-    function handleCreatNewComment(event: FormEvent) {
+    function handleCreatNewtarefa(event: FormEvent) {
         event.preventDefault()
 
+        const notEqual = tarefas.filter(tarefa => {
+            return tarefa === newTarefaText
+        })
 
-        setComments([...comments, newCommentText]);
-        setNewCommentText('');
+        if (notEqual.length != 0) {
+            window.alert('Essa tarefa já existe!')
+        } else {
 
+            setTarefas([...tarefas, newTarefaText]);
+            setNewTarefaText('');
+
+        };
+  
     }
 
-    function handleNewCommentChange(event: ChangeEvent<HTMLInputElement>) {
+    function handleNewTarefaChange(event: ChangeEvent<HTMLInputElement>) {
         event.target.setCustomValidity('');
-        setNewCommentText(event.target.value);
+        setNewTarefaText(event.target.value);
     }
 
-    function handleNewCommentInvalid(event: InvalidEvent<HTMLInputElement>) {
+    function handleNewTarefaInvalid(event: InvalidEvent<HTMLInputElement>) {
         event.target.setCustomValidity('Esse campo é obrigatório!')
     }
 
-    function deleteComment(commentToDelete: string) {
-        const commentsWithoutDeletedOne = comments.filter(comment => {
-            return comment != commentToDelete;
+    function deleteTarefa(tarefaToDelete: string) {
+        const tarefasWithoutDeletedOne = tarefas.filter(tarefa => {
+            return tarefa != tarefaToDelete;
         })
 
-        setComments(commentsWithoutDeletedOne);
+        setTarefas(tarefasWithoutDeletedOne);
     }
 
-    const isNewCommentEmpty = newCommentText.length === 0;
+    const isNewTarefaEmpty = newTarefaText.length === 0;
 
     return (
         <article className={styles.post}>
 
-            <form onSubmit={handleCreatNewComment} className={styles.commentForm}>
+            <form onSubmit={handleCreatNewtarefa} className={styles.listForm}>
                 <div className={styles.submitForm}>
 
                     <input
                         name="comment"
                         placeholder="Adicione uma nova tarefa"
-                        value={newCommentText}
+                        value={newTarefaText}
                         type="text"
-                        onChange={handleNewCommentChange}
-                        onInvalid={handleNewCommentInvalid}
+                        onChange={handleNewTarefaChange}
+                        onInvalid={handleNewTarefaInvalid}
                         required
                     />
 
                     <footer>
-                        <button type="submit" disabled={isNewCommentEmpty}>
+                        <button type="submit" disabled={isNewTarefaEmpty}>
                             Criar
                             <PlusCircle size={18} weight="bold" />
                         </button>
@@ -72,19 +75,21 @@ export function ToDoInput() {
                 </div>
             </form>
 
+            <section>
+                <Counter />
+            </section>
 
-
-            <div className={styles.commentList}>
+            <div className={styles.tarefaList}>
 
                 {
-                    comments.length === 0 ? <EmptyBody /> : comments.map(comment => {
-                        return <Comment key={comment} content={comment} onDeleteComment={deleteComment} />
+                    tarefas.length === 0 ? <EmptyBody /> : tarefas.map(comment => {
+                        return <Tarefas key={self.crypto.randomUUID()} content={comment} onDeleteComment={deleteTarefa} />
                     })
 
-                    
+
                 }
 
-                
+
             </div>
         </article>
     )
