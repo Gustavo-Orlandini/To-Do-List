@@ -1,3 +1,4 @@
+import { PlusCircle } from 'phosphor-react';
 import { FormEvent, useState, ChangeEvent, InvalidEvent } from 'react';
 import { Comment } from './Comment';
 
@@ -13,13 +14,13 @@ interface PostProps {
     content: Content[];
 }
 
-export function Post({content}: PostProps) {
+export function Post({ content }: PostProps) {
     const [comments, setComments] = useState([
         'Post toooop heim!?'
     ])
 
     const [newCommentText, setNewCommentText] = useState('')
-    
+
 
     function handleCreatNewComment(event: FormEvent) {
         event.preventDefault()
@@ -51,26 +52,29 @@ export function Post({content}: PostProps) {
 
     return (
         <article className={styles.post}>
-         
-            <form onSubmit={handleCreatNewComment} className={styles.commentForm}>
-                
-              
-                <input
-                    name="comment"
-                    placeholder="Adicione uma nova tarefa"
-                    value={newCommentText}
-                    type="text"
-                    onChange={(e) => setNewCommentText(e.target.value)}
-                    // onInvalid={handleNewCommentInvalid}
-                    required
-                />
 
-                <footer>
-                    <button type="submit" disabled={isNewCommentEmpty}>
-                        Criar
-                    </button>
-                </footer>
+            <form onSubmit={handleCreatNewComment} className={styles.commentForm}>
+                <div className={styles.submitForm}>
+
+                    <input
+                        name="comment"
+                        placeholder="Adicione uma nova tarefa"
+                        value={newCommentText}
+                        type="text"
+                        onChange={(e) => setNewCommentText(e.target.value)}
+                        // onInvalid={handleNewCommentInvalid}
+                        required
+                    />
+
+                    <footer>
+                        <button type="submit" disabled={isNewCommentEmpty}>
+                            Criar
+                            <PlusCircle size={18} />
+                        </button>
+                    </footer>
+                </div>
             </form>
+
 
             <div className={styles.content}>
                 {content.map(line => {
@@ -86,7 +90,7 @@ export function Post({content}: PostProps) {
 
             <div className={styles.commentList}>
                 {comments.map(comment => {
-                    return <Comment key={comment} content={comment} onDeleteComment={deleteComment}/>
+                    return <Comment key={comment} content={comment} onDeleteComment={deleteComment} />
                 })}
             </div>
         </article>

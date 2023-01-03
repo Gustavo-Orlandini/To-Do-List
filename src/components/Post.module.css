@@ -29,67 +29,63 @@
     color: var(--green-300);
 }
 
-/* .post > header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-} */
-
 .post > header {
     font-size: 0.875rem;
     color: var(--gray-400);
 }
 
-
-.commentForm {
-    width: 100%;
-    /* margin-top: 1.5rem; */
-    /* padding: 1.5rem; */
-    /* border-top: 1px solid var(--gray-100); */
+.submitForm {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: -1.7rem;
+    
 }
 
+footer {
+    display: flex;
+}
 
 .commentForm input {
     width: 100%;
     background: var(--gray-500);
-    border: 2px solid black;
+    border: 1px solid black;
     resize: none;
     height: 3.375rem;
     padding: 1rem;
     border-radius: 8px;
     color: var(--gray-100);
     line-height: 1.4;
+    font-size: 1rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     /* margin-top: 1rem; */
 }
 
-.commentForm > footer {
-    visibility: hidden;
-    max-height: 0;
-}
-
-.commentForm:focus-within footer {
-    visibility: visible;
-    max-height: none;
-}
-
 .commentForm button[type="submit"] {
-    padding: 1rem 1.5rem;
-    margin-top: 1rem;
+    /* width: 5.625rem; */
+    height: 3.25rem;
+    padding: 1rem;
     border-radius: 8px;
     border: 0;
-    background: var(--blue-500);
-    color: var(--white);
-    font-weight: bold;
+    background: var(--blue-600);
+    color: var(--gray-100);
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.1s;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    line-height: 1.4;
+    
 }
 
 .commentForm button[type="submit"]:not(:disabled):hover {
-    background: var(--blue-600);
+    background: var(--blue-300);
 }
 
 .commentForm button[type="submit"]:disabled {
-    opacity: 0.5;
+    opacity: 0.7;
     cursor: not-allowed;
 }
 
