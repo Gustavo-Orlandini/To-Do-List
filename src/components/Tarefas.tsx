@@ -4,10 +4,10 @@ import styles from './Tarefas.module.css';
 
 interface CommentProps {
     content: string;
-    onDeleteComment: (comment: string) => void;
+    onDeleteTarefa: (comment: string) => void;
 }
 
-export function Tarefas({ content, onDeleteComment }: CommentProps) {
+export function Tarefas({ content, onDeleteTarefa: onDeleteComment }: CommentProps) {
     const [likeCount, setLikeCount] = useState(0);
 
     function handleDeleteTarefa() {
@@ -15,24 +15,24 @@ export function Tarefas({ content, onDeleteComment }: CommentProps) {
         onDeleteComment(content);
     }
 
-
     return (
-        <div className={styles.list}>
-            
 
-            <div className={styles.listBox}>
-                <div className={styles.listContent}>
-                    <header>
-                        
-                        <button onClick={handleDeleteTarefa} title='Deletar comentário.'>
-                            <Trash size={24}/>    
-                        </button>
-                    </header>
+        <div className={styles.task}>
 
-                    <p>{content}</p>
-                </div>
+            <button className={styles.checkContainer}>
+                <div></div>
+                
+            </button>
 
-            </div>
-        </div>    
+            <p>{content}</p>
+
+            <button onClick={handleDeleteTarefa} title='Deletar comentário.'>
+                <Trash size={20} />
+            </button>
+
+
+        </div>
+
+
     )
 }

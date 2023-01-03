@@ -83,7 +83,7 @@ export function ToDoInput() {
 
                 {
                     tarefas.length === 0 ? <EmptyBody /> : tarefas.map(comment => {
-                        return <Tarefas key={self.crypto.randomUUID()} content={comment} onDeleteComment={deleteTarefa} />
+                        return <Tarefas key={self.crypto.randomUUID()} content={comment} onDeleteTarefa={deleteTarefa} />
                     })
 
 
