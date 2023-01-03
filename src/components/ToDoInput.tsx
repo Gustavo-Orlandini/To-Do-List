@@ -1,8 +1,9 @@
 import { PlusCircle } from 'phosphor-react';
 import { FormEvent, useState, ChangeEvent, InvalidEvent } from 'react';
 import { Comment } from './Comment';
+import { EmptyBody } from './EmptyBody';
 
-import styles from './Post.module.css';
+import styles from './ToDoInput.module.css';
 
 
 interface Content {
@@ -10,11 +11,7 @@ interface Content {
     content: string;
 }
 
-interface PostProps {
-    content: Content[];
-}
-
-export function Post({ content }: PostProps) {
+export function ToDoInput() {
     const [comments, setComments] = useState([
         'Post toooop heim!?'
     ])
@@ -31,14 +28,14 @@ export function Post({ content }: PostProps) {
 
     }
 
-    // function handleNewCommentChange(event: ChangeEvent<HTMLInputElement>) {
-    //     event.target.setCustomValidity('');
-    //     setNewCommentText(event.target.value);
-    // }
+    function handleNewCommentChange(event: ChangeEvent<HTMLInputElement>) {
+        event.target.setCustomValidity('');
+        setNewCommentText(event.target.value);
+    }
 
-    // function handleNewCommentInvalid(event: InvalidEvent<HTMLInputElement>) {
-    //     event.target.setCustomValidity('Esse campo é obrigatório!')
-    // }
+    function handleNewCommentInvalid(event: InvalidEvent<HTMLInputElement>) {
+        event.target.setCustomValidity('Esse campo é obrigatório!')
+    }
 
     function deleteComment(commentToDelete: string) {
         const commentsWithoutDeletedOne = comments.filter(comment => {
@@ -61,37 +58,33 @@ export function Post({ content }: PostProps) {
                         placeholder="Adicione uma nova tarefa"
                         value={newCommentText}
                         type="text"
-                        onChange={(e) => setNewCommentText(e.target.value)}
-                        // onInvalid={handleNewCommentInvalid}
+                        onChange={handleNewCommentChange}
+                        onInvalid={handleNewCommentInvalid}
                         required
                     />
 
                     <footer>
                         <button type="submit" disabled={isNewCommentEmpty}>
                             Criar
-                            <PlusCircle size={18} />
+                            <PlusCircle size={18} weight="bold" />
                         </button>
                     </footer>
                 </div>
             </form>
 
 
-            <div className={styles.content}>
-                {content.map(line => {
-                    if (line.type === 'paragraph') {
-                        return <p key={line.content}>{line.content}</p>;
-                    } else if (line.type === 'link') {
-                        return <p key={line.content}><a href="#">{line.content}</a></p>
-
-                    }
-                })}
-
-            </div>
 
             <div className={styles.commentList}>
-                {comments.map(comment => {
-                    return <Comment key={comment} content={comment} onDeleteComment={deleteComment} />
-                })}
+
+                {
+                    comments.length === 0 ? <EmptyBody /> : comments.map(comment => {
+                        return <Comment key={comment} content={comment} onDeleteComment={deleteComment} />
+                    })
+
+                    
+                }
+
+                
             </div>
         </article>
     )

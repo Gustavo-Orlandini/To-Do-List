@@ -9,25 +9,6 @@
     margin-top: 2rem;
 }
 
-.content {
-    line-height: 1.6;
-    color: var(--gray-300);
-    /* margin-top: 1.5rem; */
-}
-
-.content p {
-    margin-top: 1rem;
-}
-
-.content a {
-    font-weight: bold;
-    color: var(--green-500);
-    text-decoration: none;
-}
-
-.content a:hover {
-    color: var(--green-300);
-}
 
 .post > header {
     font-size: 0.875rem;
@@ -77,6 +58,7 @@ footer {
     gap: 8px;
     align-items: center;
     line-height: 1.4;
+    font-weight: 700;
     
 }
 
@@ -85,8 +67,9 @@ footer {
 }
 
 .commentForm button[type="submit"]:disabled {
-    opacity: 0.7;
+    /* opacity: 0.7; */
     cursor: not-allowed;
+    background: var(--gray-500);
 }
 
 .commentList {
