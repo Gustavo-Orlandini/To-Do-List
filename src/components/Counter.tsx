@@ -1,16 +1,24 @@
 import styles from './Counter.module.css'
 
-export function Counter() {
+interface CounterProps {
+    tasksLength: number; 
+    completedTasks: number;
+}
+
+
+
+export function Counter({tasksLength, completedTasks}: CounterProps) {
     return (
         <header>
             <div className={styles.leftCount}>
                 <p>Tarefas criadas</p>
-                <span>0</span>
+                <span>{tasksLength}</span>
             </div>
 
             <div className={styles.rightCount}>
                 <p>Concluídas</p>
-                <span>2 de 5</span>
+                <span>{completedTasks} de {tasksLength}</span>
+                
             </div>
         </header>
     )

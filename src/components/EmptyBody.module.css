@@ -2,12 +2,18 @@
     width: 100%;
     line-height: 1.6;
     color: var(--gray-300);
-    /* margin-top: 1.5rem; */
+    margin-top: 1.5rem;
     align-items: center;
     display: flex;
     flex-direction: column;
+    border-top: 1px solid var(--gray-400);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    padding-top: 4rem;
 }
 
-.content p {
+
+strong {
     margin-top: 1rem;
 }
+
